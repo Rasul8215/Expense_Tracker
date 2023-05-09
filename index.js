@@ -5,13 +5,19 @@ require("dotenv").config();
 
 const apiRouter = require("./routes/api/index");
 
-mongoose.connect("mongodb://0.0.0.0:27017/expense_tracker").then(() => {
-  console.log("connected");
-});
+mongoose
+  .connect(
+    "mongodb+srv://rasul8215:rasul8215@cluster0.aqrjrwk.mongodb.net/expense_tracker"
+  )
+  .then(() => {
+    console.log("connected");
+  });
 const server = express();
 server.use(cors());
 server.use(express.json());
 
 server.use("/api", apiRouter);
 
-server.listen(3000);
+server.listen(process.env.PORT ?? 3000, () => {
+  console.log(`server runing at${process.env.PORT}`);
+});
